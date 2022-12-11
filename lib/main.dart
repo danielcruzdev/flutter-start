@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'widgets/TaskWidget.dart';
+import 'screens/initial_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,7 +8,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,38 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Tarefas'),
-        ),
-        body: ListView(
-          children: [
-            Task('Aprender Flutter'),
-            Task('Andar de Bike'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-            Task('Meditar'),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(onPressed: () {}),
-      ),
+      home: const InitialScreen(),
     );
   }
 }
