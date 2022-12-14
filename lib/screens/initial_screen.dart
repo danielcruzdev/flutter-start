@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_start/data/task_inherited.dart';
+import 'package:flutter_start/screens/form_screen.dart';
 import '../components/task.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -17,44 +19,17 @@ class _InitialScreenState extends State<InitialScreen> {
       appBar: AppBar(
         title: const Text('Tarefas'),
       ),
-      body: AnimatedOpacity(
-        duration: const Duration(milliseconds: 1000),
-        opacity: opacidade ? 1 : 0,
-        child: ListView(
-          children: const [
-            Task(
-                'Aprender Flutter',
-                'assets/images/flutter.png',
-                3),
-            Task(
-                'Andar de Bike',
-                'assets/images/bike.jpg',
-                2),
-            Task(
-                'Ler',
-                'assets/images/ler.jpg',
-                4),
-            Task(
-                'Meditar',
-                'assets/images/meditar.jpeg',
-                5),
-            Task(
-                'Jogar',
-                'assets/images/jogar.jpg',
-                1),
-            SizedBox(
-              height: 70,
-            )
-          ],
-        ),
+      body: ListView(
+        children: TaskInherited.of(context).taskList,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            opacidade = !opacidade;
-          });
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (newContext) => FormScreen(taskContext: context)));
         },
-        child: const Icon(Icons.remove_red_eye),
+        child: const Icon(Icons.add),
       ),
     );
   }
