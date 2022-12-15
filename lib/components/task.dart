@@ -6,14 +6,9 @@ class Task extends StatefulWidget {
   final String foto;
   final int dificuldade;
 
-  const Task(this.nome, this.foto, this.dificuldade, {Key? key})
+  Task(this.nome, this.foto, this.dificuldade, {Key? key})
       : super(key: key);
 
-  @override
-  State<Task> createState() => _TaskState();
-}
-
-class _TaskState extends State<Task> {
   var descricoes = [
     'Iniciante 2',
     'Intermediário',
@@ -22,7 +17,6 @@ class _TaskState extends State<Task> {
     'Expert',
     'Mestre'
   ];
-
   var colors = [
     Colors.blue,
     Colors.green,
@@ -39,6 +33,19 @@ class _TaskState extends State<Task> {
 
 
   @override
+  State<Task> createState() => _TaskState();
+}
+
+class _TaskState extends State<Task> {
+  bool assetOrNetwork() {
+    if (widget.foto.contains('http')) {
+      return false;
+    }
+
+    return true;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -47,7 +54,7 @@ class _TaskState extends State<Task> {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: colors[maestria],
+              color: widget.colors[widget.maestria],
             ),
             height: 140,
           ),
@@ -71,10 +78,15 @@ class _TaskState extends State<Task> {
                       height: 100,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(4),
-                        child: Image.asset(
-                          widget.foto,
-                          fit: BoxFit.cover,
-                        ),
+                        child: assetOrNetwork()
+                            ? Image.asset(
+                                widget.foto,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                widget.foto,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                     Column(
@@ -103,13 +115,13 @@ class _TaskState extends State<Task> {
                       child: ElevatedButton(
                           onPressed: () {
                             setState(() {
-                              if (nivel < (widget.dificuldade * 10)) {
-                                nivel++;
+                              if (widget.nivel < (widget.dificuldade * 10)) {
+                                widget.nivel++;
                               } else {
-                                if(maestria < 6){
-                                  maestria++;
-                                  nivel = 0;
-                                  descricaoNivel = descricoes[maestria - 1];
+                                if (widget.maestria < 6) {
+                                  widget.maestria++;
+                                  widget.nivel = 0;
+                                  widget.descricaoNivel = widget.descricoes[widget.maestria - 1];
                                 }
                               }
                             });
@@ -139,7 +151,7 @@ class _TaskState extends State<Task> {
                       child: LinearProgressIndicator(
                         color: Colors.white,
                         value: (widget.dificuldade > 0)
-                            ? (nivel / widget.dificuldade) / 10
+                            ? (widget.nivel / widget.dificuldade) / 10
                             : 1,
                       ),
                     ),
@@ -147,14 +159,14 @@ class _TaskState extends State<Task> {
                   Padding(
                     padding: const EdgeInsets.all(12),
                     child: Text(
-                      descricaoNivel,
+                      widget.descricaoNivel,
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(12),
                     child: Text(
-                      'Nível: $nivel',
+                      'Nível: ${widget.nivel}',
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),
