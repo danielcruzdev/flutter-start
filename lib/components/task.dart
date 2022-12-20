@@ -6,8 +6,7 @@ class Task extends StatefulWidget {
   final String foto;
   final int dificuldade;
 
-  Task(this.nome, this.foto, this.dificuldade, {Key? key})
-      : super(key: key);
+  Task(this.nome, this.foto, this.dificuldade, {Key? key}) : super(key: key);
 
   var descricoes = [
     'Iniciante 2',
@@ -30,7 +29,6 @@ class Task extends StatefulWidget {
   int nivel = 0;
   int maestria = 0;
   String descricaoNivel = 'Iniciante';
-
 
   @override
   State<Task> createState() => _TaskState();
@@ -121,7 +119,8 @@ class _TaskState extends State<Task> {
                                 if (widget.maestria < 6) {
                                   widget.maestria++;
                                   widget.nivel = 0;
-                                  widget.descricaoNivel = widget.descricoes[widget.maestria - 1];
+                                  widget.descricaoNivel =
+                                      widget.descricoes[widget.maestria - 1];
                                 }
                               }
                             });
